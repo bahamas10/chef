@@ -35,6 +35,7 @@ class Chef
         @action = :create
         @append = false
         @non_unique = false
+        @etcdir = nil
         @allowed_actions.push(:create, :remove, :modify, :manage)
       end
 

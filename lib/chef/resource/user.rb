@@ -47,6 +47,7 @@ class Chef
         }
         @iterations = 27855
         @salt = nil
+        @etcdir = nil
         @allowed_actions.push(:create, :remove, :modify, :manage, :lock, :unlock)
       end
 

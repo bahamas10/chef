@@ -35,9 +35,15 @@ class Chef
           end
         end
 
+        def pw
+          command = "pw"
+          command << " -V #{@new_resource.etcdir}" if @new_resource.etcdir
+          command
+        end
+
         # Create the group
         def create_group
-          command = "pw groupadd"
+          command = "#{pw} groupadd"
           command << set_options
 
           # pw group[add|mod] -M is used to set the full membership list on a
@@ -58,7 +64,7 @@ class Chef
 
         # Manage the group when it already exists
         def manage_group
-          command = "pw groupmod"
+          command = "#{pw} groupmod"
           command << set_options
           member_options = set_members_options
           if member_options.empty?
@@ -72,7 +78,7 @@ class Chef
 
         # Remove the group
         def remove_group
-          run_command(:command => "pw groupdel #{@new_resource.group_name}")
+          run_command(:command => "#{pw} groupdel #{@new_resource.group_name}")
         end
 
         # Little bit of magic as per Adam's useradd provider to pull and assign the command line flags
